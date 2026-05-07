@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Models\Link;
 
 class LinkController extends Controller
 {
     public function redirect($slug)
     {
-        $link = \App\Models\Link::where('slug', $slug)->firstOrFail();
+        // Cari slug, jika tidak ada langsung 404
+        $link = Link::where('slug', $slug)->firstOrFail();
+        
+        // Tambah jumlah klik
         $link->increment('clicks');
+
+        // Alihkan ke URL asli
         return redirect()->away($link->original_url);
     }
 }

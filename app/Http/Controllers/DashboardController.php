@@ -28,9 +28,20 @@ class DashboardController extends Controller
 
     public function storeLink(Request $request)
     {
+        // Daftar kata yang tidak boleh digunakan sebagai slug
+        $reservedWords = ['dashboard', 'users', 'profile', 'login', 'logout', 'auth', 'register'];
+
         $request->validate([
             'original_url' => ['required', 'url', 'max:2048'],
-            'slug' => ['required', 'alpha_dash', 'min:3', 'max:50', Rule::unique('links', 'slug')],
+            'slug' => [
+                'required', 
+                'alpha_dash', 
+                'min:3', 
+                'max:50', 
+                Rule::unique('links', 'slug'),
+                // Tambahkan validasi ini:
+                Rule::notIn($reservedWords),
+            ],
         ]);
 
         Link::create([

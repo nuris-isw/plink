@@ -1,54 +1,55 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <!-- TITLE -->
+    <div class="text-center">
+        <h1 class="text-2xl font-bold text-dark tracking-tight">
+            Perpenas Link Manager
+        </h1>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <p class="mt-3 text-sm leading-relaxed text-gray-dark">
+            Halaman awal untuk mengakses sistem
+            <span class="font-semibold text-brand-red">
+                Link Shortener
+            </span>
+            dan pengelolaan QR Code.
+        </p>
+    </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    <!-- SESSION STATUS -->
+    <div class="mt-6">
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+    </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+    <!-- GOOGLE LOGIN -->
+    <div class="mt-8">
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+        <a
+            href="{{ route('google.login') }}"
+            class="group inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-gray-light bg-white px-5 py-4 text-sm font-semibold text-dark shadow-sm transition-all duration-200 hover:border-brand-red hover:bg-gray-light/20 hover:shadow-md"
+        >
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+            <!-- GOOGLE ICON -->
+            <img
+                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                class="w-5 h-5"
+                alt="Google"
+            >
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-
-        <div class="flex items-center justify-center mt-4">
-            <a href="{{ route('google.login') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5 mr-2">
+            <span>
                 Login with Google
-            </a>
-        </div>
-    </form>
+            </span>
+        </a>
+
+        <p class="mt-4 text-center text-xs leading-relaxed text-gray-dark">
+            Gunakan akun Google yang telah didaftarkan administrator
+            untuk masuk ke sistem.
+        </p>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="mt-8 text-center text-xs text-gray-dark">
+        © {{ date('Y') }} Perpenas Link Manager
+    </div>
+
 </x-guest-layout>
