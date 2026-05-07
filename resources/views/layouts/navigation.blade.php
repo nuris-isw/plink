@@ -15,6 +15,13 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <!-- Menu Baru: Manajemen User (Hanya untuk Admin) -->
+                    @if(Auth::user()->is_admin)
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                            {{ __('Manajemen User') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
